@@ -1,18 +1,66 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <h1>Home</h1>
+    <FilterNav @filterValue="current=$event" :current="current"></FilterNav>
+    <div v-for="project in filterProjects" :key="project.id">    
+      <DetailsData :project="project" @delete="deleteProject" @complete="completeProject" />
+    </div>    
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import DetailsData from '../components/DetailsData'
+import FilterNav from '../components/FilterNav'
 
 export default {
   name: 'HomeView',
-  components: {
-    HelloWorld
+  components:{
+    DetailsData,
+    FilterNav
+  },
+  data(){
+    return{
+      projects:[],
+      current:"all"
+    }
+  },
+  computed:{
+    filterProjects(){
+      if(this.current === 'complete'){
+        return this.projects.filter((p)=>{
+          return p.complete;
+        })
+      }
+      if(this.current === 'ongoing'){
+        return this.projects.filter((p)=>{
+          return !p.complete;
+        })
+      }
+      return this.projects;
+    }
+  },
+  mounted(){
+    fetch('http://localhost:3000/projects')
+    .then((response)=>{
+      return response.json()
+    })
+    .then((datas)=>{
+      this.projects=datas
+    }) 
+    .catch(()=>{
+
+    })
+  },
+  methods:{
+    deleteProject(id){
+      this.projects = this.projects.filter(project=>{
+        return project.id != id;
+      })
+    },
+    completeProject(id){
+      let completePjId = this.projects.find(project=>{
+        return project.id === id;
+      });
+      completePjId.complete = !completePjId.complete;
+    }
   }
 }
 </script>

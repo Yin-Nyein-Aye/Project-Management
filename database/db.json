@@ -1,0 +1,34 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "title": "JPA Camp",
+      "detail": "I will allow only 10 people",
+      "complete": true
+    },
+    {
+      "id": "208c",
+      "title": "PHP ",
+      "detail": "PHP is the open source server side language",
+      "complete": false
+    },
+    {
+      "id": "acb2",
+      "title": "Laravel",
+      "detail": "Laravel is the framework",
+      "complete": true
+    },
+    {
+      "id": "5f79",
+      "title": "Vuejs FRONT END ",
+      "detail": "Vuejs is the frontend framework AND EASY TO LEARN",
+      "complete": false
+    },
+    {
+      "id": "eba9",
+      "title": "hello girl",
+      "detail": "hi there",
+      "complete": false
+    }
+  ]
+}
